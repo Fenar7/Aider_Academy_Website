@@ -1,4 +1,6 @@
 import BlogSection from "@/components/BlogSection/BlogSection";
+import BottomCtaSection from "@/components/BottomCtaSection/BottomCtaSection";
+import Footer from "@/components/Footer/Footer";
 import HeroSection from "@/components/HeroSection/HeroSection";
 import LogoScrollSection from "@/components/LogoScrollSection/LogoScrollSection";
 import OurCourses from "@/components/OurCourses/OurCourses";
@@ -20,6 +22,8 @@ export default function Home() {
       <WhoCanJoin />
       <BlogSection />
       <TestimoinalsSection />
+      <BottomCtaSection />
+      <Footer />
     </main>
   );
 }

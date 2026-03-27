@@ -5,7 +5,7 @@ type PrimaryButtonProps = {
   children: React.ReactNode;
   type?: "button" | "submit" | "reset";
   className?: string;
-  variant?: "primary" | "light";
+  variant?: "primary" | "light" | "dark" | "white";
 };
 
 const PrimaryButton = ({

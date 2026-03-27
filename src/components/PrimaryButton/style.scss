@@ -34,3 +34,24 @@
     transform: translateY(-1px);
   }
 }
+
+.primary-button--dark {
+  background-color: $color-black;
+  color: $color-white;
+
+  &:hover {
+    background-color: #111111;
+    transform: translateY(-1px);
+  }
+}
+
+.primary-button--white {
+  background-color: $color-white;
+  color: $color-hash-black;
+  border: 1px solid $color-stroke-grey;
+
+  &:hover {
+    background-color: #f8f8f8;
+    transform: translateY(-1px);
+  }
+}
