@@ -1,0 +1,116 @@
+.who-we-are-section-container-main {
+  width: 100%;
+  background-color: $color-white;
+  padding: 27px 0 68px;
+}
+
+.who-we-section-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.who-we-are-section__media {
+  width: 100%;
+}
+
+.who-we-are-section__image-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 572 / 557;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #e5a3a3;
+}
+
+.who-we-are-section__image {
+  position: absolute;
+  top: 0;
+  left: -18.18%;
+  width: 145.8%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.who-we-are-section__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 42px;
+}
+
+.who-we-are-section__heading {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.who-we-are-section__heading .section-heading__description {
+  max-width: 551px;
+  font-size: 15px;
+}
+
+.who-we-are-section__features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px 28px;
+  width: 100%;
+}
+
+.who-we-are-section__feature {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: $color-hash-grey-2;
+
+  img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+}
+
+.who-we-are-section__cta {
+  font-weight: 600;
+}
+
+@media (min-width: 992px) {
+  .who-we-section-container {
+    grid-template-columns: minmax(0, 572px) minmax(0, 551px);
+    gap: 43px;
+    justify-content: center;
+  }
+
+  .who-we-are-section__features {
+    grid-template-columns: repeat(2, max-content);
+    align-items: start;
+  }
+}
+
+@media (max-width: 991px) {
+  .who-we-are-section-container-main {
+    padding: 24px 0 56px;
+  }
+
+  .who-we-section-container {
+    gap: 32px;
+  }
+
+  .who-we-are-section__content {
+    gap: 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  .who-we-are-section__features {
+    gap: 18px;
+  }
+}
