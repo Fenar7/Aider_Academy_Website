@@ -1,11 +1,10 @@
-import React from 'react'
+import AboutHero from "@/components/AboutComponents/AboutHero/AboutHero";
+import "./style.scss";
 
-const page = () => {
+export default function AboutPage() {
   return (
-    <div>
-
-    </div>
-  )
+    <main className="about-page-main">
+      <AboutHero />
+    </main>
+  );
 }
-
-export default page
