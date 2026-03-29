@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import TransitionLink from "@/components/AppShell/TransitionLink";
 import "./style.scss";
 
 const imgLogo =
@@ -59,9 +59,9 @@ const Footer = () => {
             <h3 className="footer-section__column-title">Navigation</h3>
             <div className="footer-section__column-links">
               {navigationLinks.map((item) => (
-                <Link className="footer-section__link" href={item.href} key={item.label}>
+                <TransitionLink className="footer-section__link" href={item.href} key={item.label}>
                   {item.label}
-                </Link>
+                </TransitionLink>
               ))}
             </div>
           </div>
@@ -70,9 +70,9 @@ const Footer = () => {
             <h3 className="footer-section__column-title">Courses</h3>
             <div className="footer-section__column-links">
               {courseLinks.map((item) => (
-                <Link className="footer-section__link" href={item.href} key={item.label}>
+                <TransitionLink className="footer-section__link" href={item.href} key={item.label}>
                   {item.label}
-                </Link>
+                </TransitionLink>
               ))}
             </div>
           </div>

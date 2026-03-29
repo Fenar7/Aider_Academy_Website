@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
+import TransitionLink from "@/components/AppShell/TransitionLink";
 import Footer from "@/components/Footer/Footer";
 import SectionHeading from "@/components/SectionHeading/SectionHeading";
 import { courseMeta, courses } from "@/data/courses";
@@ -65,12 +65,12 @@ export default function CoursesPage() {
                       ))}
                     </div>
 
-                    <Link
+                    <TransitionLink
                       className="primary-button primary-button--primary course-card__cta course-card__cta-link"
                       href={`/courses/${course.slug}`}
                     >
                       Know More
-                    </Link>
+                    </TransitionLink>
                   </div>
                 </article>
               ))}

@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import GlobalExperienceLayer from "@/components/AppShell/GlobalExperienceLayer";
 import SiteHeader from "@/components/ContactComponents/SiteHeader/SiteHeader";
 
 type AppShellProps = {
@@ -12,10 +13,10 @@ const AppShell = ({ children }: AppShellProps) => {
   const showSiteHeader = !pathname.startsWith("/studio");
 
   return (
-    <>
+    <GlobalExperienceLayer enabled={showSiteHeader}>
       {showSiteHeader ? <SiteHeader /> : null}
       {children}
-    </>
+    </GlobalExperienceLayer>
   );
 };
 

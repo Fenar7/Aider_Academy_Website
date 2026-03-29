@@ -2,8 +2,8 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import TransitionLink from "@/components/AppShell/TransitionLink";
 import "./style.scss";
 
 const imgLogo =
@@ -35,8 +35,18 @@ export default function SiteHeader() {
   const mobileItemsRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
+    if (!isMobileMenuOpen) {
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      setIsMobileMenuOpen(false);
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+    };
+  }, [isMobileMenuOpen, pathname]);
 
   useEffect(() => {
     if (typeof document === "undefined") {
@@ -129,9 +139,9 @@ export default function SiteHeader() {
   return (
     <header className="site-header-main">
       <div className="site-header-container container">
-        <Link className="site-header__brand" href="/" aria-label="Aider Academy home">
+        <TransitionLink className="site-header__brand" href="/" aria-label="Aider Academy home">
           <img className="site-header__logo" src={imgLogo} alt="Aider Academy" />
-        </Link>
+        </TransitionLink>
 
         <nav className="site-header__nav" aria-label="Primary navigation">
           {navigationItems.map((item) => {
@@ -147,7 +157,7 @@ export default function SiteHeader() {
                   : false;
 
             return (
-            <Link
+            <TransitionLink
               className={`site-header__nav-link ${
                 isActive ? "site-header__nav-link--pill" : ""
               }`.trim()}
@@ -155,7 +165,7 @@ export default function SiteHeader() {
               href={item.href}
             >
               {item.label}
-            </Link>
+            </TransitionLink>
             );
           })}
         </nav>
@@ -174,7 +184,7 @@ export default function SiteHeader() {
             ))}
           </div>
 
-          <Link
+          <TransitionLink
             className={`site-header__contact-cta ${
               pathname === "/contact" ? "site-header__contact-cta--active" : ""
             }`.trim()}
@@ -189,7 +199,7 @@ export default function SiteHeader() {
                 aria-hidden="true"
               />
             </span>
-          </Link>
+          </TransitionLink>
         </div>
 
         <button
@@ -223,7 +233,7 @@ export default function SiteHeader() {
                         : false;
 
               return (
-                <Link
+                <TransitionLink
                   className={`site-header__mobile-nav-link site-header__mobile-stagger ${
                     isActive ? "site-header__mobile-nav-link--active" : ""
                   }`.trim()}
@@ -231,7 +241,7 @@ export default function SiteHeader() {
                   key={item.label}
                 >
                   {item.label}
-                </Link>
+                </TransitionLink>
               );
             })}
           </nav>
@@ -249,7 +259,7 @@ export default function SiteHeader() {
             ))}
           </div>
 
-          <Link
+          <TransitionLink
             className="site-header__mobile-contact-cta site-header__mobile-stagger"
             href="/contact"
           >
@@ -262,7 +272,7 @@ export default function SiteHeader() {
                 aria-hidden="true"
               />
             </span>
-          </Link>
+          </TransitionLink>
         </div>
       </div>
     </header>

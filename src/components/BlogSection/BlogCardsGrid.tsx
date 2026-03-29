@@ -1,4 +1,4 @@
-import Link from "next/link";
+import TransitionLink from "@/components/AppShell/TransitionLink";
 import { formatBlogDate } from "@/sanity/lib/date";
 import { urlForImage } from "@/sanity/lib/image";
 import type { BlogPostCard } from "@/sanity/types";
@@ -20,7 +20,7 @@ const BlogCardsGrid = ({ posts, className = "" }: BlogCardsGridProps) => {
 
         return (
           <article className="blog-card" key={post._id}>
-            <Link className="blog-card__image-link" href={`/blog/${post.slug}`}>
+            <TransitionLink className="blog-card__image-link" href={`/blog/${post.slug}`}>
               <div className="blog-card__image-frame">
                 {imageUrl ? (
                   <img className="blog-card__image" src={imageUrl} alt={post.title} />
@@ -29,12 +29,12 @@ const BlogCardsGrid = ({ posts, className = "" }: BlogCardsGridProps) => {
                 )}
                 <div className="blog-card__category">{post.category}</div>
               </div>
-            </Link>
+            </TransitionLink>
 
             <div className="blog-card__content">
-              <Link className="blog-card__title-link" href={`/blog/${post.slug}`}>
+              <TransitionLink className="blog-card__title-link" href={`/blog/${post.slug}`}>
                 <h3 className="blog-card__title">{post.title}</h3>
-              </Link>
+              </TransitionLink>
 
               <div className="blog-card__meta">
                 <img src={imgCalendar} alt="" aria-hidden="true" />
@@ -43,12 +43,12 @@ const BlogCardsGrid = ({ posts, className = "" }: BlogCardsGridProps) => {
 
               <p className="blog-card__description">{post.excerpt}</p>
 
-              <Link
+              <TransitionLink
                 className="primary-button primary-button--light blog-card__cta blog-card__cta-link"
                 href={`/blog/${post.slug}`}
               >
                 Know More
-              </Link>
+              </TransitionLink>
             </div>
           </article>
         );
