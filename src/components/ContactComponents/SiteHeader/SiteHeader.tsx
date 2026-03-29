@@ -16,7 +16,7 @@ const navigationItems = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Courses", href: "/courses" },
-  { label: "Blog", href: "/#blog" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const socialItems = [
@@ -45,6 +45,8 @@ export default function SiteHeader() {
                   ? pathname === "/about"
                   : item.href === "/courses"
                     ? pathname === "/courses"
+                    : item.href === "/blog"
+                      ? pathname === "/blog"
                   : false;
 
             return (
