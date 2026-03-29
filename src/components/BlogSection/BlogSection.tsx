@@ -1,4 +1,4 @@
-import Link from "next/link";
+import TransitionLink from "@/components/AppShell/TransitionLink";
 import SectionHeading from "@/components/SectionHeading/SectionHeading";
 import { getLatestBlogPosts } from "@/sanity/queries";
 import BlogCardsGrid from "./BlogCardsGrid";
@@ -25,9 +25,9 @@ const BlogSection = async () => {
           <BlogEmptyState className="blog-section__empty" />
         )}
 
-        <Link className="primary-button primary-button--light blog-section__view-all" href="/blog">
+        <TransitionLink className="primary-button primary-button--light blog-section__view-all" href="/blog">
           View All
-        </Link>
+        </TransitionLink>
       </div>
     </section>
   );
