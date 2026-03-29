@@ -2,6 +2,7 @@ import AboutHero from "@/components/AboutComponents/AboutHero/AboutHero";
 import AboutLogoScrollSection from "@/components/AboutComponents/AboutLogoScrollSection/AboutLogoScrollSection";
 import AboutStorySection from "@/components/AboutComponents/AboutStorySection/AboutStorySection";
 import AboutValueSection from "@/components/AboutComponents/AboutValueSection/AboutValueSection";
+import AboutpageMotion from "@/components/AboutpageMotion/AboutpageMotion";
 import CounterSection from "@/components/AboutComponents/CounterSection/CounterSection";
 import "./style.scss";
 
@@ -34,6 +35,7 @@ export default function AboutPage() {
         imageAlt="Team of learners collaborating around laptops in a classroom setting"
       />
       <AboutLogoScrollSection />
+      <AboutpageMotion />
     </main>
   );
 }
