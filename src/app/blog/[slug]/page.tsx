@@ -1,190 +1,121 @@
-import Link from "next/link";
+import type { Metadata } from "next";
+import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { notFound } from "next/navigation";
+import BlogCardsGrid from "@/components/BlogSection/BlogCardsGrid";
 import Footer from "@/components/Footer/Footer";
-import PrimaryButton from "@/components/PrimaryButton/PrimaryButton";
-import "@/components/BlogSection/style.scss";
+import { formatBlogDate } from "@/sanity/lib/date";
+import { urlForImage } from "@/sanity/lib/image";
+import { getAllBlogSlugs, getBlogPostBySlug, getRelatedBlogPosts } from "@/sanity/queries";
 import "./style.scss";
-
-const imgCalendar = "/images/icons/calendar.png";
-const imgArticleOnePrimary =
-  "https://www.figma.com/api/mcp/asset/f5e14e15-2cb4-4770-98d8-9a6ae2c6ffac";
-const imgArticleOneOverlay =
-  "https://www.figma.com/api/mcp/asset/05e92654-7ef5-47f8-b992-4a7f9e2d09f3";
-const imgArticleTwo =
-  "https://www.figma.com/api/mcp/asset/78cf3f08-2718-40ff-bf10-21e9a8cb02c3";
-const imgArticleThree =
-  "https://www.figma.com/api/mcp/asset/fd334987-73e7-4d8a-bf0a-1639b263a6ce";
-
-const featuredPost = {
-  slug: "from-beginner-to-job-ready",
-  date: "Jan 2, 2026",
-  title: "From Beginner to Job-Ready: A Practical 90-Day Learning Plan",
-  heroImage: imgArticleThree,
-  content: [
-    {
-      type: "paragraph",
-      value:
-        "Most people don't fail because they're bad at learning. They fail because they learn in the wrong order.",
-    },
-    {
-      type: "paragraph",
-      value:
-        "They watch tutorial after tutorial, collect screenshots, save links, and feel productive. Then the moment someone asks, “Can you do this for me?” they freeze. Not because they don't know anything, but because they never built the habit that matters: turning learning into output.",
-    },
-    {
-      type: "paragraph",
-      value:
-        "If you're starting from zero, or restarting after a gap, this is a practical 90-day plan that works across digital marketing, graphic design, and web development. It's structured, realistic, and built around one idea:",
-    },
-    {
-      type: "paragraph",
-      value: "Every week must produce something you can show.",
-    },
-    {
-      type: "heading",
-      value: "The 90-Day Rule That Changes Everything",
-    },
-    {
-      type: "paragraph",
-      value: "A complete work cycle in 90 days covers several layers:",
-    },
-    {
-      type: "list",
-      value: [
-        "First, you learn the skill at a beginner level",
-        "Then, you complete small tasks without panic",
-        "You can explain what you did and why",
-        "You finally finish projects that feel like real work",
-      ],
-    },
-    {
-      type: "paragraph",
-      value:
-        "That's what separates confident learners from people who just consume content.",
-    },
-    {
-      type: "heading",
-      value: "Phase 1: Weeks 1-3 Build the Base",
-    },
-    {
-      type: "paragraph",
-      value: "Goal:",
-    },
-    {
-      type: "paragraph",
-      value: "Understand fundamentals and build consistency.",
-    },
-    {
-      type: "paragraph",
-      value: "What most beginners do wrong:",
-    },
-    {
-      type: "paragraph",
-      value:
-        "They start with advanced topics too fast. You can't solve high-level problems without understanding low-level patterns first.",
-    },
-    {
-      type: "paragraph",
-      value: "Weekly targets:",
-    },
-    {
-      type: "list",
-      value: [
-        "Learn 1 fundamental skill daily",
-        "Learn concept deeply, but immediately test the foundation",
-        "Practice 60-90 minutes per day",
-        "Finish 1 small output per week that can be explained end-to-end",
-      ],
-    },
-    {
-      type: "heading",
-      value: "Phase 2: Weeks 4-8 Make Workflows",
-    },
-    {
-      type: "list",
-      value: [
-        "Learn tools in simple workflows",
-        "Recreate mini-projects",
-        "Build repeatable workflow",
-        "End each week with one small task using the workflow",
-      ],
-    },
-    {
-      type: "heading",
-      value: "Phase 3: Weeks 9-12 Go Real",
-    },
-    {
-      type: "list",
-      value: [
-        "Recreate work used by real teams",
-        "Continue to push skills to realistic scope",
-        "End each week with one polished file or project",
-      ],
-    },
-    {
-      type: "heading",
-      value: "Examples",
-    },
-    {
-      type: "list",
-      value: [
-        "Digital Marketing: Analyze a mock brand and build a basic content strategy",
-        "Web Dev: Develop a complete one-page app plan",
-        "Graphic Design: Build one polished mockup and export",
-      ],
-    },
-  ],
-};
-
-const relatedPosts = [
-  {
-    slug: "client-ready-workflows",
-    title: "Blog Title",
-    category: "Education",
-    date: "16 Jan 2025",
-    description:
-      "Learn to deliver client-ready work, price your services, and build a portfolio that helps you win projects consistently.",
-    image: imgArticleOnePrimary,
-    overlayImage: imgArticleOneOverlay,
-    imageClassName: "blog-card__image--article-one",
-    overlayClassName: "blog-card__overlay--article-one",
-  },
-  {
-    slug: "team-learning-systems",
-    title: "Blog Title",
-    category: "Education",
-    date: "16 Jan 2025",
-    description:
-      "Learn to deliver client-ready work, price your services, and build a portfolio that helps you win projects consistently.",
-    image: imgArticleTwo,
-    imageClassName: "blog-card__image--article-two",
-  },
-  {
-    slug: "dashboard-thinking",
-    title: "Blog Title",
-    category: "Education",
-    date: "16 Jan 2025",
-    description:
-      "Learn to deliver client-ready work, price your services, and build a portfolio that helps you win projects consistently.",
-    image: imgArticleThree,
-    imageClassName: "blog-card__image--article-three",
-  },
-];
-
-export function generateStaticParams() {
-  return [{ slug: featuredPost.slug }];
-}
 
 type BlogDetailPageProps = {
   params: Promise<{ slug: string }>;
 };
 
+const portableTextComponents: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => <p className="blog-detail-content__paragraph">{children}</p>,
+    h2: ({ children }) => <h2 className="blog-detail-content__subheading">{children}</h2>,
+    h3: ({ children }) => <h3 className="blog-detail-content__subheading">{children}</h3>,
+  },
+  list: {
+    bullet: ({ children }) => <ul className="blog-detail-content__list">{children}</ul>,
+    number: ({ children }) => <ol className="blog-detail-content__ordered-list">{children}</ol>,
+  },
+  listItem: {
+    bullet: ({ children }) => <li>{children}</li>,
+    number: ({ children }) => <li>{children}</li>,
+  },
+  types: {
+    image: ({ value }) => {
+      const imageUrl = urlForImage(value).width(1400).fit("max").auto("format").url();
+
+      return (
+        <figure className="blog-detail-content__media">
+          <img src={imageUrl} alt={value.alt || ""} />
+        </figure>
+      );
+    },
+  },
+  marks: {
+    link: ({ children, value }) => (
+      <a
+        className="blog-detail-content__link"
+        href={value?.href}
+        target="_blank"
+        rel="noreferrer"
+      >
+        {children}
+      </a>
+    ),
+  },
+};
+
+export async function generateStaticParams() {
+  const slugs = await getAllBlogSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: BlogDetailPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug);
+
+  if (!post) {
+    return {
+      title: "Blog | Aider Academy",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const title = post.seoTitle || post.title;
+  const description = post.seoDescription || post.excerpt;
+  const seoImage = post.seoImage || post.coverImage;
+  const imageUrl = seoImage
+    ? urlForImage(seoImage).width(1200).height(630).fit("crop").url()
+    : undefined;
+
+  return {
+    title: `${title} | Aider Academy`,
+    description,
+    robots: post.seoNoIndex
+      ? {
+          index: false,
+          follow: false,
+        }
+      : undefined,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      publishedTime: post.publishedAt,
+      images: imageUrl ? [{ url: imageUrl, alt: post.title }] : undefined,
+    },
+    twitter: {
+      card: imageUrl ? "summary_large_image" : "summary",
+      title,
+      description,
+      images: imageUrl ? [imageUrl] : undefined,
+    },
+  };
+}
+
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   const { slug } = await params;
+  const post = await getBlogPostBySlug(slug);
 
-  if (slug !== featuredPost.slug) {
+  if (!post) {
     notFound();
   }
+
+  const relatedPosts = await getRelatedBlogPosts(slug, 3);
+  const heroImageUrl = post.coverImage
+    ? urlForImage(post.coverImage).width(1600).height(700).fit("crop").url()
+    : null;
 
   return (
     <>
@@ -192,11 +123,11 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
         <section className="blog-detail-hero-section">
           <div className="blog-detail-hero-container container">
             <div className="blog-detail-hero__frame">
-              <img
-                className="blog-detail-hero__image"
-                src={featuredPost.heroImage}
-                alt={featuredPost.title}
-              />
+              {heroImageUrl ? (
+                <img className="blog-detail-hero__image" src={heroImageUrl} alt={post.title} />
+              ) : (
+                <div className="blog-detail-hero__image-placeholder" aria-hidden="true" />
+              )}
             </div>
           </div>
         </section>
@@ -204,36 +135,12 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
         <section className="blog-detail-content-section">
           <div className="blog-detail-content-container container">
             <div className="blog-detail-content__header">
-              <p className="blog-detail-content__date">{featuredPost.date}</p>
-              <h1 className="blog-detail-content__title">{featuredPost.title}</h1>
+              <p className="blog-detail-content__date">{formatBlogDate(post.publishedAt)}</p>
+              <h1 className="blog-detail-content__title">{post.title}</h1>
             </div>
 
-            <div className="blog-detail-content__body">
-              {featuredPost.content.map((block, index) => {
-                if (block.type === "heading") {
-                  return (
-                    <h2 className="blog-detail-content__subheading" key={`${block.value}-${index}`}>
-                      {block.value}
-                    </h2>
-                  );
-                }
-
-                if (block.type === "list") {
-                  return (
-                    <ul className="blog-detail-content__list" key={`list-${index}`}>
-                      {block.value.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  );
-                }
-
-                return (
-                  <p className="blog-detail-content__paragraph" key={`${block.value}-${index}`}>
-                    {block.value}
-                  </p>
-                );
-              })}
+            <div className="blog-detail-content__body blog-detail-content__portable">
+              <PortableText components={portableTextComponents} value={post.body} />
             </div>
           </div>
         </section>
@@ -242,45 +149,11 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
           <div className="blog-detail-read-more-container container">
             <h2 className="blog-detail-read-more__title">Read More</h2>
 
-            <div className="blog-cards-container blog-detail-read-more__grid">
-              {relatedPosts.map((post) => (
-                <article className="blog-card" key={post.slug}>
-                  <div className="blog-card__image-frame">
-                    <img
-                      className={`blog-card__image ${post.imageClassName}`}
-                      src={post.image}
-                      alt={post.title}
-                    />
-                    {post.overlayImage ? (
-                      <img
-                        className={`blog-card__overlay ${post.overlayClassName ?? ""}`.trim()}
-                        src={post.overlayImage}
-                        alt=""
-                        aria-hidden="true"
-                      />
-                    ) : null}
-                    <div className="blog-card__category">{post.category}</div>
-                  </div>
-
-                  <div className="blog-card__content">
-                    <h3 className="blog-card__title">{post.title}</h3>
-
-                    <div className="blog-card__meta">
-                      <img src={imgCalendar} alt="" aria-hidden="true" />
-                      <span>{post.date}</span>
-                    </div>
-
-                    <p className="blog-card__description">{post.description}</p>
-
-                    <Link className="blog-detail-read-more__link" href={`/blog/${post.slug}`}>
-                      <PrimaryButton className="blog-card__cta" variant="light">
-                        Know More
-                      </PrimaryButton>
-                    </Link>
-                  </div>
-                </article>
-              ))}
-            </div>
+            {relatedPosts.length > 0 ? (
+              <BlogCardsGrid className="blog-detail-read-more__grid" posts={relatedPosts} />
+            ) : (
+              <p className="blog-detail-read-more__empty">More blog posts will appear here once published.</p>
+            )}
           </div>
         </section>
       </main>

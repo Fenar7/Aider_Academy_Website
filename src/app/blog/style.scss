@@ -23,6 +23,14 @@
   gap: 20px;
 }
 
+.blog-page__empty {
+  margin: 0;
+  font-family: "Poppins", $font-family-primary;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #666666;
+}
+
 .blog-page__pagination {
   display: flex;
   align-items: center;
