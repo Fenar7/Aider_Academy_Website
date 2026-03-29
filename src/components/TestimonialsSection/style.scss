@@ -25,7 +25,10 @@
 
 .testimonials-section__heading .section-heading__description {
   max-width: 515px;
+  margin-left: 0;
+  margin-right: 0;
   font-size: 15px;
+  text-align: left;
 }
 
 .testimonials-section__controls {
@@ -107,7 +110,7 @@
   font-family: "Poppins", $font-family-primary;
   font-size: 15px;
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 25px;
   color: $color-hash-black;
 }

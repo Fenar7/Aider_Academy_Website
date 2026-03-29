@@ -1,18 +1,35 @@
-import React from 'react';
+"use client";
+
+import React, { useEffect, useState } from 'react';
 import './style.scss';
 
 const imgPngegg1 = "http://localhost:3845/assets/3344d4a18f4bd7ed189d26b6054e8b241242ad9e.png";
 const imgPngegg2 = "http://localhost:3845/assets/cf26b3e4a1da84a6e692a434a6f4acd33121c86c.png";
-const imgCtdsLogo11 = "http://localhost:3845/assets/819c6b122fd7c3abdab8f0862cef7a629cd4ceca.png";
-const imgPhoneIcon = "http://localhost:3845/assets/24a6e0cafa699c64ab17c0342809902b2ea92f88.png";
-const imgHeroMain = "http://localhost:3845/assets/04a1b9beb697aa7ef30e421fad3b31ea733bb1ea.png";
-const imgAsteriskIcon = "http://localhost:3845/assets/0f23cbb3486a64574ac41bfa090eada01a98abf2.png";
+const imgCtdsLogo11 = "/images/icons/CTDS%20Logo%20(1)%201.png";
+const imgPhoneIcon = "/images/icons/call.png";
+const imgAsteriskIcon = "/images/icons/black-star.png";
 const imgCyanAsteriskTop = "http://localhost:3845/assets/8fde289adeed9fa14a855f9ed2bf9c865a3eeb9e.png";
-const imgIconGraphicDesign = "http://localhost:3845/assets/7485581bb43aeac7d6f0c8564eded9fe6d2b6f0c.png";
-const imgIconDigitalMarketing = "http://localhost:3845/assets/823d7e11db702c76df9ec4fabb46b3a441a94370.png";
-const imgIconWebDev = "http://localhost:3845/assets/59b50bea39784f6aa027676f93e497dfa78bf790.png";
+const imgIconGraphicDesign = "/images/icons/graphic-design.png";
+const imgIconDigitalMarketing = "/images/icons/digital-marketing.png";
+const imgIconWebDev = "/images/icons/web-dev.png";
+
+const heroImages = [
+  "/images/hero-1.png",
+  "/images/hero-2.png",
+  "/images/hero-3.png",
+];
 
 const HeroSection = () => {
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveImageIndex((current) => (current + 1) % heroImages.length);
+    }, 5000);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
+
   return (
     <div className='hero-section-container-main'>
       <img src={imgCyanAsteriskTop} alt="Decoration" className="hero-decoration-top" />
@@ -60,7 +77,11 @@ const HeroSection = () => {
 
           <div className="hero-card-container">
             <div className="hero-image-mask">
-              <img src={imgHeroMain} alt="Students collaborating" className="hero-main-img" />
+              <img
+                src={heroImages[activeImageIndex]}
+                alt="Students collaborating"
+                className="hero-main-img"
+              />
             </div>
             
             <div className="floating-badge badge-graphic">

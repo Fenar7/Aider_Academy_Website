@@ -2,11 +2,11 @@ import React from "react";
 import SectionHeading from "@/components/SectionHeading/SectionHeading";
 import "./style.scss";
 
-const imgBeginners = "https://www.figma.com/api/mcp/asset/582deb55-d1a2-4305-93cb-a4030c576d84";
-const imgProfessionals = "https://www.figma.com/api/mcp/asset/8c893cfd-2308-485a-88bb-f5d7f737a175";
-const imgStudents = "https://www.figma.com/api/mcp/asset/89872538-f5d1-468b-a69b-566d5a654971";
-const imgFreelancers = "https://www.figma.com/api/mcp/asset/a8abb596-3f6f-42ea-8247-4dbed7399fad";
-const imgCheck = "https://www.figma.com/api/mcp/asset/ca4da20e-3eed-4703-982b-33557168b988";
+const imgBeginners = "/images/icons/w1.png";
+const imgProfessionals = "/images/icons/w2.png";
+const imgStudents = "/images/icons/w3.png";
+const imgFreelancers = "/images/icons/w-4.png";
+const imgCheck = "/images/icons/who-can-join-tick.png";
 
 const audienceCards = [
   {

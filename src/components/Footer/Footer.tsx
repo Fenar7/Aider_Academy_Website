@@ -2,15 +2,11 @@ import React from "react";
 import "./style.scss";
 
 const imgLogo =
-  "https://www.figma.com/api/mcp/asset/ec58bb8d-9a86-4092-a035-f52ae1e0c7a0";
-const imgFacebook =
-  "https://www.figma.com/api/mcp/asset/a7869b1c-87ac-44e1-a819-ad5eb0193fab";
-const imgInstagram =
-  "https://www.figma.com/api/mcp/asset/9c195c96-403d-4fef-af51-6f9f02a5220f";
-const imgLinkedIn =
-  "https://www.figma.com/api/mcp/asset/a2ffc6e9-741f-447f-9132-0216906d3761";
-const imgWhatsApp =
-  "https://www.figma.com/api/mcp/asset/6c84e7c7-ba7c-4d53-b884-273a3485809b";
+  "/images/aider-academy-logo.png";
+const imgFacebook = "/images/icons/fb.svg";
+const imgInstagram = "/images/icons/insta.svg";
+const imgLinkedIn = "/images/icons/linkedin.svg";
+const imgWhatsApp = "/images/icons/wp.svg";
 
 const navigationLinks = ["Home", "About", "Courses", "Contact"];
 const courseLinks = ["Graphic Design", "Digital Marketing", "Web Development"];

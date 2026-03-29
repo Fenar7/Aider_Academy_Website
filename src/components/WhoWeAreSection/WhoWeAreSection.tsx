@@ -4,16 +4,11 @@ import SectionHeading from "@/components/SectionHeading/SectionHeading";
 import "./style.scss";
 
 const WhoWeAreSection = () => {
-  const imgMain =
-    "https://www.figma.com/api/mcp/asset/227cf369-c5d3-4d57-a984-2674d284a54f";
-  const imgGlobe =
-    "https://www.figma.com/api/mcp/asset/1474e749-bb22-4013-8678-7104af3bc393";
-  const imgBadge =
-    "https://www.figma.com/api/mcp/asset/0a959ce3-8aea-4091-8bab-fd3b1b8f6c84";
-  const imgSpark =
-    "https://www.figma.com/api/mcp/asset/dd6c53eb-fcc3-4acb-869e-498bf30f4368";
-  const imgBriefcase =
-    "https://www.figma.com/api/mcp/asset/685bd877-ff6a-4538-a485-dc0e7d6e704e";
+  const imgMain = "/images/who-we-are.png";
+  const imgGlobe = "/images/icons/who-1.png";
+  const imgBadge = "/images/icons/who-2.png";
+  const imgSpark = "/images/icons/who-3.png";
+  const imgBriefcase = "/images/icons/who-4.png";
 
   const features = [
     { icon: imgGlobe, label: "GCC-Ready Curriculum" },

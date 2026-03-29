@@ -2,14 +2,10 @@ import React from "react";
 import SectionHeading from "@/components/SectionHeading/SectionHeading";
 import "./style.scss";
 
-const imgFundamentalsIcon =
-  "https://www.figma.com/api/mcp/asset/d1bca525-91fb-4f40-9978-ea724abc33c3";
-const imgPortfolioIcon =
-  "https://www.figma.com/api/mcp/asset/7097fa84-4438-421b-b2ac-05dfa5c9334e";
-const imgWorkflowIcon =
-  "https://www.figma.com/api/mcp/asset/e4bab0b3-b57b-49bb-b1fe-329efeea2ede";
-const imgFeedbackIcon =
-  "https://www.figma.com/api/mcp/asset/ce5b5897-d1e1-4dba-9b5a-8a8755721505";
+const imgFundamentalsIcon = "/images/icons/why-1.png";
+const imgPortfolioIcon = "/images/icons/why-2.png";
+const imgWorkflowIcon = "/images/icons/why-3.png";
+const imgFeedbackIcon = "/images/icons/why-4.png";
 
 const features = [
   {

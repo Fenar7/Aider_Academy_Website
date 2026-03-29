@@ -1,9 +1,9 @@
 import React from 'react';
 import './style.scss';
 
-const imgIcon1 = "http://localhost:3845/assets/da041f5d83328a91116d5749b3c37672eeea7720.png";
-const imgIcon2 = "http://localhost:3845/assets/5d49f86a8d917b0f0f7cef4c3dd84fbad6c82f41.png";
-const imgIcon3 = "http://localhost:3845/assets/4963e859d2146b74eb6decd68ff54f5b0dd5a5f4.png";
+const imgIcon1 = "/images/icons/f-1.png";
+const imgIcon2 = "/images/icons/f-2.png";
+const imgIcon3 = "/images/icons/f-3.png";
 
 const pillars = [
   {

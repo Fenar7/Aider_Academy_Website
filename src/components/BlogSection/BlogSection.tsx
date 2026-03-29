@@ -7,8 +7,7 @@ const imgArticleOnePrimary =
   "https://www.figma.com/api/mcp/asset/f5e14e15-2cb4-4770-98d8-9a6ae2c6ffac";
 const imgArticleOneOverlay =
   "https://www.figma.com/api/mcp/asset/05e92654-7ef5-47f8-b992-4a7f9e2d09f3";
-const imgCalendar =
-  "https://www.figma.com/api/mcp/asset/cfc1fb92-3b49-43e8-a319-351b4c877b3c";
+const imgCalendar = "/images/icons/calendar.png";
 const imgArticleTwo =
   "https://www.figma.com/api/mcp/asset/78cf3f08-2718-40ff-bf10-21e9a8cb02c3";
 const imgArticleThree =
