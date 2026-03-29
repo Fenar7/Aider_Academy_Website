@@ -15,7 +15,7 @@ const imgCtaArrow = "/images/icons/right-arrow.svg";
 const navigationItems = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Courses", href: "/#courses" },
+  { label: "Courses", href: "/courses" },
   { label: "Blog", href: "/#blog" },
 ];
 
@@ -43,6 +43,8 @@ export default function SiteHeader() {
                 ? pathname === "/"
                 : item.href === "/about"
                   ? pathname === "/about"
+                  : item.href === "/courses"
+                    ? pathname === "/courses"
                   : false;
 
             return (

@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import "./style.scss";
 
 const imgLogo =
@@ -8,8 +9,17 @@ const imgInstagram = "/images/icons/insta.svg";
 const imgLinkedIn = "/images/icons/linkedin.svg";
 const imgWhatsApp = "/images/icons/wp.svg";
 
-const navigationLinks = ["Home", "About", "Courses", "Contact"];
-const courseLinks = ["Graphic Design", "Digital Marketing", "Web Development"];
+const navigationLinks = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Courses", href: "/courses" },
+  { label: "Contact", href: "/contact" },
+];
+const courseLinks = [
+  { label: "Graphic Design", href: "/courses" },
+  { label: "Digital Marketing", href: "/courses" },
+  { label: "Web Development", href: "/courses" },
+];
 const contactItems = [
   "support@example.com",
   "+91 99999 99999",
@@ -48,9 +58,9 @@ const Footer = () => {
             <h3 className="footer-section__column-title">Navigation</h3>
             <div className="footer-section__column-links">
               {navigationLinks.map((item) => (
-                <a className="footer-section__link" href="#" key={item}>
-                  {item}
-                </a>
+                <Link className="footer-section__link" href={item.href} key={item.label}>
+                  {item.label}
+                </Link>
               ))}
             </div>
           </div>
@@ -59,9 +69,9 @@ const Footer = () => {
             <h3 className="footer-section__column-title">Courses</h3>
             <div className="footer-section__column-links">
               {courseLinks.map((item) => (
-                <a className="footer-section__link" href="#" key={item}>
-                  {item}
-                </a>
+                <Link className="footer-section__link" href={item.href} key={item.label}>
+                  {item.label}
+                </Link>
               ))}
             </div>
           </div>
