@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer/Footer";
+import CourseDetailSidebar from "@/components/CourseDetailComponents/CourseDetailSidebar";
 import CourseDetailTabs from "@/components/CourseDetailComponents/CourseDetailTabs";
 import { courseMeta, courses } from "@/data/courses";
 import "@/components/OurCourses/style.scss";
@@ -94,54 +95,8 @@ export default async function CourseDetailPage({ params }: CourseDetailPageProps
         <section className="course-detail-body-section">
           <div className="course-detail-body-container container">
             <div className="course-detail-body-layout">
-              <aside className="course-detail-sidebar">
-                <button className="primary-button primary-button--primary course-detail-sidebar__cta" type="button">
-                  Apply Now
-                </button>
-                <p className="course-detail-sidebar__placement">
-                  CTDS certified learning path with mentor-led support and portfolio-focused practice.
-                </p>
-
-                <div className="course-detail-sidebar__rows">
-                  <div className="course-detail-sidebar__row">
-                    <span className="course-detail-sidebar__row-label">Duration</span>
-                    <span className="course-detail-sidebar__row-value">{course.duration}</span>
-                  </div>
-                  <div className="course-detail-sidebar__row">
-                    <span className="course-detail-sidebar__row-label">Session Duration</span>
-                    <span className="course-detail-sidebar__row-value">{course.sessionDuration}</span>
-                  </div>
-                  <div className="course-detail-sidebar__row">
-                    <span className="course-detail-sidebar__row-label">Class Schedule</span>
-                    <span className="course-detail-sidebar__row-value">{course.classSchedule}</span>
-                  </div>
-                  <div className="course-detail-sidebar__row">
-                    <span className="course-detail-sidebar__row-label">Mode</span>
-                    <span className="course-detail-sidebar__row-value">{course.mode}</span>
-                  </div>
-                  <div className="course-detail-sidebar__row">
-                    <span className="course-detail-sidebar__row-label">Enrolled</span>
-                    <span className="course-detail-sidebar__row-value">{course.enrolled}</span>
-                  </div>
-                </div>
-
-                <div className="course-detail-sidebar__support">
-                  <p className="course-detail-sidebar__support-copy">
-                    Need help deciding if this track is right for you?
-                  </p>
-                  <a className="course-detail-sidebar__phone" href="tel:+918888888888">
-                    Call Us: +91 88888 88888
-                  </a>
-                  <button
-                    className="primary-button primary-button--dark course-detail-sidebar__brochure"
-                    type="button"
-                  >
-                    Download Brochure
-                  </button>
-                </div>
-              </aside>
-
               <CourseDetailTabs course={course} />
+              <CourseDetailSidebar course={course} />
             </div>
           </div>
         </section>

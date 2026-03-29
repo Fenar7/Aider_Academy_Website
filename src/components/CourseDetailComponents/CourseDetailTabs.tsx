@@ -1,6 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import gsap from "gsap";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import type { Course } from "@/data/courses";
 import "./style.scss";
 
@@ -17,27 +23,262 @@ const sectionIds = {
   trainers: "course-trainers",
 } as const;
 
+type SectionKey = keyof typeof sectionIds;
+
+const tabItems: Array<{ key: SectionKey; label: string }> = [
+  { key: "overview", label: "Overview" },
+  { key: "modules", label: "Modules" },
+  { key: "features", label: "Features" },
+  { key: "trainers", label: "Trainers" },
+];
+
 const CourseDetailTabs = ({ course }: CourseDetailTabsProps) => {
   const [openModuleIndex, setOpenModuleIndex] = useState(0);
+  const [activeSection, setActiveSection] = useState<SectionKey>("overview");
+  const [stickyMode, setStickyMode] = useState<"static" | "fixed" | "bottom">("static");
+  const [navMetrics, setNavMetrics] = useState({ left: 0, width: 0, height: 0 });
+  const shellRef = useRef<HTMLDivElement | null>(null);
+  const navRef = useRef<HTMLDivElement | null>(null);
+  const indicatorRef = useRef<HTMLSpanElement | null>(null);
+  const sectionRefs = useRef<Partial<Record<SectionKey, HTMLElement | null>>>({});
+  const tabRefs = useRef<Partial<Record<SectionKey, HTMLButtonElement | null>>>({});
+  const accordionContentRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const accordionInnerRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const accordionVerticalBarRefs = useRef<Array<HTMLSpanElement | null>>([]);
+
+  const updateIndicator = (section: SectionKey) => {
+    const nav = navRef.current;
+    const indicator = indicatorRef.current;
+    const activeTab = tabRefs.current[section];
+
+    if (!nav || !indicator || !activeTab) {
+      return;
+    }
+
+    gsap.to(indicator, {
+      x: activeTab.offsetLeft,
+      width: activeTab.offsetWidth,
+      duration: 0.38,
+      ease: "power3.out",
+    });
+  };
+
+  useLayoutEffect(() => {
+    updateIndicator(activeSection);
+
+    const handleResize = () => updateIndicator(activeSection);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [activeSection]);
+
+  useEffect(() => {
+    const nav = navRef.current;
+
+    if (!nav) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((entryA, entryB) => entryB.intersectionRatio - entryA.intersectionRatio);
+
+        if (visible.length === 0) {
+          return;
+        }
+
+        const nextActive = visible[0].target.getAttribute("data-section-key") as SectionKey | null;
+
+        if (nextActive) {
+          setActiveSection(nextActive);
+        }
+      },
+      {
+        rootMargin: "-160px 0px -52% 0px",
+        threshold: [0.2, 0.35, 0.55, 0.75],
+      },
+    );
+
+    tabItems.forEach(({ key }) => {
+      const section = sectionRefs.current[key];
+
+      if (section) {
+        observer.observe(section);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const updateStickyState = () => {
+      const shell = shellRef.current;
+      const nav = navRef.current;
+
+      if (!shell || !nav) {
+        return;
+      }
+
+      if (window.innerWidth <= 767) {
+        setStickyMode("static");
+        setNavMetrics((previous) => ({
+          ...previous,
+          width: shell.offsetWidth,
+          height: nav.offsetHeight,
+        }));
+        return;
+      }
+
+      const shellRect = shell.getBoundingClientRect();
+      const topOffset = 12;
+      const navHeight = nav.offsetHeight;
+
+      setNavMetrics({
+        left: shellRect.left,
+        width: shellRect.width,
+        height: navHeight,
+      });
+
+      if (shellRect.top <= topOffset && shellRect.bottom > navHeight + topOffset) {
+        setStickyMode("fixed");
+        return;
+      }
+
+      if (shellRect.bottom <= navHeight + topOffset) {
+        setStickyMode("bottom");
+        return;
+      }
+
+      setStickyMode("static");
+    };
+
+    updateStickyState();
+
+    window.addEventListener("scroll", updateStickyState, { passive: true });
+    window.addEventListener("resize", updateStickyState);
+
+    return () => {
+      window.removeEventListener("scroll", updateStickyState);
+      window.removeEventListener("resize", updateStickyState);
+    };
+  }, []);
+
+  useEffect(() => {
+    accordionContentRefs.current.forEach((content, index) => {
+      const inner = accordionInnerRefs.current[index];
+      const verticalBar = accordionVerticalBarRefs.current[index];
+      const isOpen = openModuleIndex === index;
+
+      if (!content || !inner) {
+        return;
+      }
+
+      gsap.killTweensOf(content);
+      gsap.killTweensOf(inner);
+
+      if (verticalBar) {
+        gsap.killTweensOf(verticalBar);
+      }
+
+      gsap.to(content, {
+        height: isOpen ? inner.offsetHeight : 0,
+        opacity: isOpen ? 1 : 0,
+        duration: isOpen ? 0.42 : 0.28,
+        ease: isOpen ? "power3.out" : "power2.inOut",
+      });
+
+      gsap.to(inner, {
+        y: isOpen ? 0 : -10,
+        duration: isOpen ? 0.42 : 0.24,
+        ease: "power3.out",
+      });
+
+      if (verticalBar) {
+        gsap.to(verticalBar, {
+          scaleY: isOpen ? 0 : 1,
+          duration: 0.28,
+          ease: "power2.out",
+          transformOrigin: "center center",
+        });
+      }
+    });
+  }, [openModuleIndex]);
+
+  const scrollToSection = (key: SectionKey) => {
+    const section = sectionRefs.current[key];
+
+    if (!section) {
+      return;
+    }
+
+    const topOffset = 158;
+    const targetTop = section.getBoundingClientRect().top + window.scrollY - topOffset;
+
+    setActiveSection(key);
+
+    window.scrollTo({
+      top: targetTop,
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <div className="course-detail-tabs-shell">
-      <div className="course-detail-tabs-nav">
-        <a className="course-detail-tabs-nav__item course-detail-tabs-nav__item--active" href={`#${sectionIds.overview}`}>
-          Overview
-        </a>
-        <a className="course-detail-tabs-nav__item" href={`#${sectionIds.modules}`}>
-          Modules
-        </a>
-        <a className="course-detail-tabs-nav__item" href={`#${sectionIds.features}`}>
-          Features
-        </a>
-        <a className="course-detail-tabs-nav__item" href={`#${sectionIds.trainers}`}>
-          Trainers
-        </a>
+    <div className="course-detail-tabs-shell" ref={shellRef}>
+      <div
+        className="course-detail-tabs-nav-spacer"
+        aria-hidden="true"
+        style={{ height: stickyMode === "fixed" ? `${navMetrics.height}px` : 0 }}
+      />
+      <div
+        className={`course-detail-tabs-nav ${
+          stickyMode === "fixed"
+            ? "course-detail-tabs-nav--fixed"
+            : stickyMode === "bottom"
+              ? "course-detail-tabs-nav--bottom"
+              : ""
+        }`.trim()}
+        ref={navRef}
+        style={
+          stickyMode === "fixed"
+            ? {
+                left: `${navMetrics.left}px`,
+                width: `${navMetrics.width}px`,
+              }
+            : undefined
+        }
+      >
+        <span className="course-detail-tabs-nav__indicator" ref={indicatorRef} aria-hidden="true" />
+        {tabItems.map((item) => (
+          <button
+            key={item.key}
+            ref={(node) => {
+              tabRefs.current[item.key] = node;
+            }}
+            className={`course-detail-tabs-nav__item ${
+              activeSection === item.key ? "course-detail-tabs-nav__item--active" : ""
+            }`.trim()}
+            type="button"
+            onClick={() => scrollToSection(item.key)}
+          >
+            {item.label}
+          </button>
+        ))}
       </div>
 
-      <section className="course-detail-panel" id={sectionIds.overview}>
+      <section
+        className="course-detail-panel"
+        id={sectionIds.overview}
+        data-section-key="overview"
+        ref={(node) => {
+          sectionRefs.current.overview = node;
+        }}
+      >
         <div className="course-detail-panel__header">
           <p className="course-detail-panel__eyebrow">{course.tag}</p>
           <h2 className="course-detail-panel__title">{course.overviewTitle}</h2>
@@ -53,7 +294,14 @@ const CourseDetailTabs = ({ course }: CourseDetailTabsProps) => {
         </div>
       </section>
 
-      <section className="course-detail-panel" id={sectionIds.modules}>
+      <section
+        className="course-detail-panel"
+        id={sectionIds.modules}
+        data-section-key="modules"
+        ref={(node) => {
+          sectionRefs.current.modules = node;
+        }}
+      >
         <div className="course-detail-panel__header">
           <p className="course-detail-panel__eyebrow">Course Content</p>
           <h2 className="course-detail-panel__title">Modules that build real skill</h2>
@@ -71,20 +319,45 @@ const CourseDetailTabs = ({ course }: CourseDetailTabsProps) => {
                   onClick={() => setOpenModuleIndex(isOpen ? -1 : index)}
                 >
                   <span>{module.title}</span>
-                  <span className="course-detail-accordion__icon">{isOpen ? "−" : "+"}</span>
+                  <span className="course-detail-accordion__icon" aria-hidden="true">
+                    <span className="course-detail-accordion__icon-bar course-detail-accordion__icon-bar--horizontal" />
+                    <span
+                      className="course-detail-accordion__icon-bar course-detail-accordion__icon-bar--vertical"
+                      ref={(node) => {
+                        accordionVerticalBarRefs.current[index] = node;
+                      }}
+                    />
+                  </span>
                 </button>
-                {isOpen ? (
-                  <div className="course-detail-accordion__content">
+                <div
+                  className="course-detail-accordion__content"
+                  ref={(node) => {
+                    accordionContentRefs.current[index] = node;
+                  }}
+                >
+                  <div
+                    className="course-detail-accordion__content-inner"
+                    ref={(node) => {
+                      accordionInnerRefs.current[index] = node;
+                    }}
+                  >
                     <p>{module.summary}</p>
                   </div>
-                ) : null}
+                </div>
               </div>
             );
           })}
         </div>
       </section>
 
-      <section className="course-detail-panel" id={sectionIds.features}>
+      <section
+        className="course-detail-panel"
+        id={sectionIds.features}
+        data-section-key="features"
+        ref={(node) => {
+          sectionRefs.current.features = node;
+        }}
+      >
         <div className="course-detail-panel__header">
           <p className="course-detail-panel__eyebrow">Why this program works</p>
           <h2 className="course-detail-panel__title">Built for practice, clarity, and confidence</h2>
@@ -107,7 +380,14 @@ const CourseDetailTabs = ({ course }: CourseDetailTabsProps) => {
         </div>
       </section>
 
-      <section className="course-detail-panel" id={sectionIds.trainers}>
+      <section
+        className="course-detail-panel"
+        id={sectionIds.trainers}
+        data-section-key="trainers"
+        ref={(node) => {
+          sectionRefs.current.trainers = node;
+        }}
+      >
         <div className="course-detail-panel__header">
           <p className="course-detail-panel__eyebrow">Meet the mentors</p>
           <h2 className="course-detail-panel__title">Learn from people who build and review work every day</h2>
