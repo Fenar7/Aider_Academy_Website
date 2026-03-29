@@ -2,6 +2,7 @@ import BlogSection from "@/components/BlogSection/BlogSection";
 import BottomCtaSection from "@/components/BottomCtaSection/BottomCtaSection";
 import Footer from "@/components/Footer/Footer";
 import HeroSection from "@/components/HeroSection/HeroSection";
+import HomepageMotion from "@/components/HomepageMotion/HomepageMotion";
 import LogoScrollSection from "@/components/LogoScrollSection/LogoScrollSection";
 import OurCourses from "@/components/OurCourses/OurCourses";
 import PillarsSection from "@/components/PillarsSection/PillarsSection";
@@ -12,7 +13,7 @@ import WhyAiderSectiont from "@/components/WhyAiderSection/WhyAiderSectiont";
 
 export default function Home() {
   return (
-    <main>
+    <main className="homepage-main">
       <HeroSection />
       <LogoScrollSection />
       <PillarsSection />
@@ -24,6 +25,7 @@ export default function Home() {
       <TestimoinalsSection />
       <BottomCtaSection />
       <Footer />
+      <HomepageMotion />
     </main>
   );
 }

@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import './style.scss';
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import "./style.scss";
 
 const imgPngegg1 = "http://localhost:3845/assets/3344d4a18f4bd7ed189d26b6054e8b241242ad9e.png";
 const imgPngegg2 = "http://localhost:3845/assets/cf26b3e4a1da84a6e692a434a6f4acd33121c86c.png";
@@ -21,6 +22,8 @@ const heroImages = [
 
 const HeroSection = () => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const heroImageRef = useRef<HTMLImageElement | null>(null);
+  const isFirstImageCycleRef = useRef(true);
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -30,8 +33,56 @@ const HeroSection = () => {
     return () => window.clearInterval(intervalId);
   }, []);
 
+  useEffect(() => {
+    const image = heroImageRef.current;
+
+    if (!image) {
+      return;
+    }
+
+    if (isFirstImageCycleRef.current) {
+      isFirstImageCycleRef.current = false;
+      return;
+    }
+
+    const timeline = gsap.timeline();
+
+    timeline
+      .fromTo(
+        image,
+        {
+          autoAlpha: 0.45,
+          scale: 1.1,
+          rotate: 0.4,
+        },
+        {
+          autoAlpha: 1,
+          scale: 1,
+          rotate: 0,
+          duration: 1.05,
+          ease: "power3.out",
+        }
+      )
+      .fromTo(
+        ".hero-image-mask",
+        {
+          boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
+        },
+        {
+          boxShadow: "0 28px 70px rgba(18, 41, 53, 0.18)",
+          duration: 0.9,
+          ease: "power2.out",
+        },
+        0
+      );
+
+    return () => {
+      timeline.kill();
+    };
+  }, [activeImageIndex]);
+
   return (
-    <div className='hero-section-container-main'>
+    <div className="hero-section-container-main">
       <img src={imgCyanAsteriskTop} alt="Decoration" className="hero-decoration-top" />
       
       <div className="hero-section-container container">
@@ -78,6 +129,7 @@ const HeroSection = () => {
           <div className="hero-card-container">
             <div className="hero-image-mask">
               <img
+                ref={heroImageRef}
                 src={heroImages[activeImageIndex]}
                 alt="Students collaborating"
                 className="hero-main-img"
