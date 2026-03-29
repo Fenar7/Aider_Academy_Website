@@ -20,7 +20,9 @@ export default function CounterSection() {
               key={item.label}
             >
               <h3 className="counter-item__value">
-                {item.value}
+                <span className="counter-item__number" data-value={item.value}>
+                  {item.value}
+                </span>
                 {item.accent ? <span>+</span> : null}
               </h3>
               <p className="counter-item__label">{item.label}</p>

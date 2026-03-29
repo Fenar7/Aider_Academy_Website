@@ -35,12 +35,16 @@ export default function AboutHero() {
             </div>
 
             <h1 className="about-hero-copy__title">
-              <span className="about-hero-copy__title-black">
-                Built to Turn
+              <span className="about-hero-copy__title-line">
+                <span className="about-hero-copy__title-black">
+                  Built to Turn
+                </span>{" "}
+                <span className="about-hero-copy__title-accent">Learning</span>
               </span>{" "}
-              <span className="about-hero-copy__title-accent">Learning</span>{" "}
-              <span className="about-hero-copy__title-black">into</span>{" "}
-              <span className="about-hero-copy__title-accent">Capability</span>
+              <span className="about-hero-copy__title-line">
+                <span className="about-hero-copy__title-black">into</span>{" "}
+                <span className="about-hero-copy__title-accent">Capability</span>
+              </span>
             </h1>
 
             <div className="about-hero-copy__flower">
@@ -55,10 +59,16 @@ export default function AboutHero() {
             </p>
 
             <div className="about-hero-actions__buttons">
-              <button className="about-hero-actions__button about-hero-actions__button--primary" type="button">
+              <button
+                className="about-hero-actions__button about-hero-actions__button--primary"
+                type="button"
+              >
                 Explore Courses
               </button>
-              <button className="about-hero-actions__button about-hero-actions__button--secondary" type="button">
+              <button
+                className="about-hero-actions__button about-hero-actions__button--secondary"
+                type="button"
+              >
                 Talk to an Advisor
               </button>
             </div>
