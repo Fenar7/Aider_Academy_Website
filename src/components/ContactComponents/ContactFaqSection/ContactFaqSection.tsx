@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import "./style.scss";
 
 const imgChevron =
@@ -41,6 +42,62 @@ const faqItems = [
 
 export default function ContactFaqSection() {
   const [openId, setOpenId] = useState<string | null>(faqItems[0]?.id ?? null);
+  const panelRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const chevronRefs = useRef<Record<string, HTMLImageElement | null>>({});
+  const hasInitialized = useRef(false);
+
+  useEffect(() => {
+    faqItems.forEach((item) => {
+      const panel = panelRefs.current[item.id];
+      const chevron = chevronRefs.current[item.id];
+      const isOpen = item.id === openId;
+
+      if (!panel || !chevron) {
+        return;
+      }
+
+      gsap.killTweensOf([panel, chevron]);
+
+      if (!hasInitialized.current) {
+        gsap.set(panel, {
+          height: isOpen ? "auto" : 0,
+          autoAlpha: isOpen ? 1 : 0,
+          overflow: "hidden",
+        });
+        gsap.set(chevron, { rotate: isOpen ? 180 : 0 });
+        return;
+      }
+
+      if (isOpen) {
+        gsap.set(panel, { display: "block" });
+        gsap.to(panel, {
+          height: "auto",
+          autoAlpha: 1,
+          duration: 0.42,
+          ease: "power2.out",
+        });
+        gsap.to(chevron, {
+          rotate: 180,
+          duration: 0.42,
+          ease: "power2.out",
+        });
+      } else {
+        gsap.to(panel, {
+          height: 0,
+          autoAlpha: 0,
+          duration: 0.34,
+          ease: "power2.inOut",
+        });
+        gsap.to(chevron, {
+          rotate: 0,
+          duration: 0.34,
+          ease: "power2.inOut",
+        });
+      }
+    });
+
+    hasInitialized.current = true;
+  }, [openId]);
 
   return (
     <section className="contact-faq-main">
@@ -79,15 +136,23 @@ export default function ContactFaqSection() {
                     src={imgChevron}
                     alt=""
                     aria-hidden="true"
+                    ref={(node) => {
+                      chevronRefs.current[item.id] = node;
+                    }}
                   />
                 </button>
 
                 <div
                   className="contact-faq__panel"
                   id={`${item.id}-panel`}
-                  hidden={!isOpen}
+                  aria-hidden={!isOpen}
+                  ref={(node) => {
+                    panelRefs.current[item.id] = node;
+                  }}
                 >
-                  <p>{item.answer}</p>
+                  <div className="contact-faq__panel-inner">
+                    <p>{item.answer}</p>
+                  </div>
                 </div>
               </article>
             );

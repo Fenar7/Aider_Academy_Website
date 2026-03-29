@@ -3,6 +3,7 @@ import ContactFaqSection from "@/components/ContactComponents/ContactFaqSection/
 import ContactFormInfoSection from "@/components/ContactComponents/ContactFormInfoSection/ContactFormInfoSection";
 import ContactHero from "@/components/ContactComponents/ContactHero/ContactHero";
 import ContactMapSection from "@/components/ContactComponents/ContactMapSection/ContactMapSection";
+import ContactpageMotion from "@/components/ContactpageMotion/ContactpageMotion";
 import "./style.scss";
 
 export default function ContactPage() {
@@ -15,6 +16,7 @@ export default function ContactPage() {
         <ContactFaqSection />
       </div>
       <Footer />
+      <ContactpageMotion />
     </main>
   );
 }
