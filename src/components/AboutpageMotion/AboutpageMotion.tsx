@@ -429,6 +429,76 @@ const AboutpageMotion = () => {
             "-=0.54",
           );
 
+        gsap.from(".testimonials-section__header > *", {
+          y: 40,
+          autoAlpha: 0,
+          duration: 0.72,
+          stagger: 0.14,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".testimonials-section-container-main",
+            start: "top 78%",
+          },
+        });
+
+        gsap.from(".testimonial-card", {
+          x: 70,
+          autoAlpha: 0,
+          duration: 0.86,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".testimonials-section__track",
+            start: "top 80%",
+          },
+        });
+
+        gsap.from(".bottom-cta-panel", {
+          y: 82,
+          autoAlpha: 0,
+          scale: 0.96,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".bottom-cta-section-container",
+            start: "top 78%",
+          },
+        });
+
+        gsap.from(".bottom-cta-panel__content > *", {
+          y: 32,
+          autoAlpha: 0,
+          duration: 0.68,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".bottom-cta-panel__content",
+            start: "top 82%",
+          },
+        });
+
+        gsap.to(".bottom-cta-panel__grid-layer--primary", {
+          yPercent: -8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".bottom-cta-panel",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 0.8,
+          },
+        });
+
+        gsap.to(".bottom-cta-panel__grid-layer--secondary", {
+          yPercent: 10,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".bottom-cta-panel",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 0.8,
+          },
+        });
+
         gsap.from(".footer-section__top > *", {
           y: 30,
           autoAlpha: 0,
@@ -456,6 +526,11 @@ const AboutpageMotion = () => {
           ".about-hero-image-wrap, .about-story-section__image-frame, .about-value-section__image-frame",
           { move: 10, rotate: 2.6, scale: 1.012 },
         );
+        addPointerTilt(".testimonial-card, .bottom-cta-panel", {
+          move: 8,
+          rotate: 2.4,
+          scale: 1.012,
+        });
         addButtonMotion(".about-hero-actions__button");
       });
 
@@ -501,6 +576,8 @@ const AboutpageMotion = () => {
               ".about-story-section-main",
               ".about-value-section-main",
               ".about-logo-scroll-section-main",
+              ".testimonials-section-container-main",
+              ".bottom-cta-section-container",
               ".footer-section-container-main",
             ].join(","),
           )
