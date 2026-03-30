@@ -11,7 +11,7 @@ $animation-duration: 30s;
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-$track-width);
+    transform: translateX(-50%);
   }
 }
 

@@ -10,7 +10,7 @@ $about-logo-animation-duration: 26s;
   }
 
   100% {
-    transform: translateX(-$about-logo-track-width);
+    transform: translateX(-50%);
   }
 }
 

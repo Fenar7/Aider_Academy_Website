@@ -11,6 +11,7 @@ const CoursesEmptyState = ({
 }: CoursesEmptyStateProps) => {
   return (
     <div className={`courses-empty-state ${className}`.trim()}>
+      <div className="courses-empty-state__badge">Coming Soon</div>
       <h3 className="courses-empty-state__title">{title}</h3>
       <p className="courses-empty-state__description">{description}</p>
     </div>

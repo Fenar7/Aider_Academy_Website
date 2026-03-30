@@ -83,3 +83,24 @@ export type CourseDetail = CourseCard & {
   seoImage?: SanityImageSource & { alt?: string };
   seoNoIndex?: boolean;
 };
+
+export type PartnerLogoItem = {
+  _key: string;
+  name?: string;
+  logo: SanityImageSource & { alt?: string };
+};
+
+export type PartnersSection = {
+  _id: string;
+  title?: string;
+  logos: PartnerLogoItem[];
+};
+
+export type Testimonial = {
+  _id: string;
+  name: string;
+  role: string;
+  quote: string;
+  image?: SanityImageSource & { alt?: string };
+  order: number;
+};

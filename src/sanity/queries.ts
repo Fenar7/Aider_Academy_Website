@@ -7,7 +7,40 @@ import type {
   BlogPostCard,
   CourseCard,
   CourseDetail,
+  PartnersSection,
+  Testimonial,
 } from "@/sanity/types";
+
+export const getTestimonials = cache(async (): Promise<Testimonial[]> => {
+  if (!hasRequiredSanityEnv) {
+    return [];
+  }
+
+  return sanityClient.fetch(
+    groq`*[_type == "testimonial"] | order(coalesce(order, 0) asc, _createdAt desc) {
+      _id,
+      name,
+      role,
+      quote,
+      image,
+      "order": coalesce(order, 0)
+    }`
+  );
+});
+
+export const getPartnersSection = cache(async (): Promise<PartnersSection | null> => {
+  if (!hasRequiredSanityEnv) {
+    return null;
+  }
+
+  return sanityClient.fetch(
+    groq`*[_type == "partnersSection"][0]{
+      _id,
+      title,
+      logos
+    }`
+  );
+});
 
 const blogCardProjection = `
   _id,
