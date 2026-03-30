@@ -253,6 +253,7 @@
   line-height: 1.15;
   background-color: $color-cta-blue;
   color: $color-white;
+  text-decoration: none;
   transition: background-color 0.2s ease, transform 0.2s ease;
 
   &:hover {
@@ -363,6 +364,7 @@
   justify-content: center;
   background-color: $color-cta-blue;
   color: $color-white;
+  text-decoration: none;
   transition: background-color 0.2s ease, transform 0.2s ease;
 
   &:hover {
@@ -695,6 +697,22 @@
   border-radius: 24px;
 }
 
+.course-detail-trainer-card__fallback {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #ecf9fc 0%, #d7f2f9 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 44px;
+    height: 44px;
+    fill: #607177;
+  }
+}
+
 .course-detail-trainer-card__content h3 {
   margin: 0;
   font-size: 42px;
@@ -845,14 +863,17 @@
   .course-detail-tabs-nav__item {
     min-height: 44px;
     font-size: 13px;
+    border-radius: 18px;
+  }
+
+  .course-detail-tabs-nav__item--active {
+    background: linear-gradient(135deg, #31c2e1 0%, #52cce7 100%);
+    color: $color-white;
+    box-shadow: 0 10px 20px rgba(49, 194, 225, 0.2);
   }
 
   .course-detail-tabs-nav__indicator {
-    top: 10px;
-    left: 10px;
-    width: calc(50% - 15px);
-    height: calc(100% - 20px);
-    border-radius: 18px;
+    display: none;
   }
 
   .course-detail-panel__title {

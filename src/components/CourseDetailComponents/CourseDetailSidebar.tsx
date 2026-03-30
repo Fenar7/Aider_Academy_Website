@@ -1,13 +1,13 @@
- "use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { Course } from "@/data/courses";
+import type { CourseDetail } from "@/sanity/types";
 
 const imgCallIcon = "/images/icons/call.png";
 const imgArrowIcon = "/images/icons/right-arrow.svg";
 
 type CourseDetailSidebarProps = {
-  course: Course;
+  course: CourseDetail;
 };
 
 const CourseDetailSidebar = ({ course }: CourseDetailSidebarProps) => {
@@ -72,6 +72,9 @@ const CourseDetailSidebar = ({ course }: CourseDetailSidebarProps) => {
     };
   }, []);
 
+  const brochureHref = course.brochureFileUrl || course.brochureUrl;
+  const hasApplyUrl = Boolean(course.applyUrl);
+
   return (
     <aside className="course-detail-sidebar-shell" ref={shellRef}>
       <div
@@ -97,15 +100,26 @@ const CourseDetailSidebar = ({ course }: CourseDetailSidebarProps) => {
             : undefined
         }
       >
-        <button className="primary-button primary-button--primary course-detail-sidebar__cta" type="button">
-          <span className="course-detail-sidebar__button-icon course-detail-sidebar__button-icon--solid">
-            <img src={imgArrowIcon} alt="" aria-hidden="true" />
-          </span>
-          <span className="course-detail-sidebar__button-text">Apply Now</span>
-        </button>
-        <p className="course-detail-sidebar__placement">
-          CTDS certified learning path with mentor-led support and portfolio-focused practice.
-        </p>
+        {hasApplyUrl ? (
+          <a className="primary-button primary-button--primary course-detail-sidebar__cta" href={course.applyUrl}>
+            <span className="course-detail-sidebar__button-icon course-detail-sidebar__button-icon--solid">
+              <img src={imgArrowIcon} alt="" aria-hidden="true" />
+            </span>
+            <span className="course-detail-sidebar__button-text">Apply Now</span>
+          </a>
+        ) : (
+          <button
+            className="primary-button primary-button--primary course-detail-sidebar__cta"
+            type="button"
+            disabled
+          >
+            <span className="course-detail-sidebar__button-icon course-detail-sidebar__button-icon--solid">
+              <img src={imgArrowIcon} alt="" aria-hidden="true" />
+            </span>
+            <span className="course-detail-sidebar__button-text">Apply Now</span>
+          </button>
+        )}
+        <p className="course-detail-sidebar__placement">{course.placementCopy}</p>
 
         <div className="course-detail-sidebar__rows">
           <div className="course-detail-sidebar__row">
@@ -131,19 +145,37 @@ const CourseDetailSidebar = ({ course }: CourseDetailSidebarProps) => {
         </div>
 
         <div className="course-detail-sidebar__support">
-          <p className="course-detail-sidebar__support-copy">Need help deciding if this track is right for you?</p>
-          <a className="course-detail-sidebar__phone" href="tel:+918888888888">
+          <p className="course-detail-sidebar__support-copy">{course.supportCopy}</p>
+          <a className="course-detail-sidebar__phone" href={`tel:${course.callNumber.replace(/\s+/g, "")}`}>
             <span className="course-detail-sidebar__button-icon">
               <img src={imgCallIcon} alt="" aria-hidden="true" />
             </span>
-            <span className="course-detail-sidebar__button-text">Call Us: +91 88888 88888</span>
+            <span className="course-detail-sidebar__button-text">Call Us: {course.callNumber}</span>
           </a>
-          <button className="primary-button primary-button--primary course-detail-sidebar__brochure" type="button">
-            <span className="course-detail-sidebar__button-icon course-detail-sidebar__button-icon--solid course-detail-sidebar__button-icon--download">
-              <img src={imgArrowIcon} alt="" aria-hidden="true" />
-            </span>
-            <span className="course-detail-sidebar__button-text">Download Brochure</span>
-          </button>
+          {brochureHref ? (
+            <a
+              className="primary-button primary-button--primary course-detail-sidebar__brochure"
+              href={brochureHref}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="course-detail-sidebar__button-icon course-detail-sidebar__button-icon--solid course-detail-sidebar__button-icon--download">
+                <img src={imgArrowIcon} alt="" aria-hidden="true" />
+              </span>
+              <span className="course-detail-sidebar__button-text">Download Brochure</span>
+            </a>
+          ) : (
+            <button
+              className="primary-button primary-button--primary course-detail-sidebar__brochure"
+              type="button"
+              disabled
+            >
+              <span className="course-detail-sidebar__button-icon course-detail-sidebar__button-icon--solid course-detail-sidebar__button-icon--download">
+                <img src={imgArrowIcon} alt="" aria-hidden="true" />
+              </span>
+              <span className="course-detail-sidebar__button-text">Download Brochure</span>
+            </button>
+          )}
         </div>
       </div>
     </aside>

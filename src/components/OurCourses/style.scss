@@ -44,6 +44,10 @@
   object-fit: cover;
 }
 
+.course-card__image--placeholder {
+  background: linear-gradient(135deg, #eaf8fc 0%, #d4eef7 100%);
+}
+
 .course-card__image--graphic {
   width: 132.14%;
   height: 133.75%;
@@ -141,6 +145,48 @@
 
 .course-card__cta-link {
   text-decoration: none;
+}
+
+.courses-empty-state {
+  padding: 34px 28px;
+  border: 1px solid $color-stroke-grey;
+  border-radius: 20px;
+  background-color: #fbfeff;
+}
+
+.courses-empty-state__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background-color: #ecf9fc;
+  font-family: "Poppins", $font-family-primary;
+  font-size: 13px;
+  line-height: 1;
+  color: $color-cta-blue;
+}
+
+.courses-empty-state__title {
+  margin: 14px 0 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: $color-hash-black;
+}
+
+.courses-empty-state__description {
+  margin: 10px 0 0;
+  max-width: 640px;
+  font-family: "Poppins", $font-family-primary;
+  font-size: 15px;
+  line-height: 1.7;
+  color: $color-hash-grey-2;
+}
+
+.our-courses__empty,
+.courses-page__empty {
+  width: 100%;
 }
 
 @media (min-width: 768px) {

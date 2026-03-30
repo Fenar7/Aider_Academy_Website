@@ -18,3 +18,68 @@ export type BlogPost = BlogPostCard & {
   seoImage?: SanityImageSource & { alt?: string };
   seoNoIndex?: boolean;
 };
+
+export type CourseModule = {
+  title: string;
+  summary: string;
+};
+
+export type CourseFeatureColumn = {
+  title: string;
+  items: string[];
+};
+
+export type CourseTrainer = {
+  name: string;
+  role: string;
+  bio: string;
+  image?: SanityImageSource & { alt?: string };
+};
+
+export type CourseCard = {
+  _id: string;
+  slug: string;
+  tag: string;
+  title: string;
+  shortTitle: string;
+  description: string;
+  image?: SanityImageSource & { alt?: string };
+  overlayImage?: SanityImageSource & { alt?: string };
+  alt: string;
+  imageClassName: string;
+  duration: string;
+  certificateLabel: string;
+  modulesCount: number;
+  showOnHomepage?: boolean;
+};
+
+export type CourseDetail = CourseCard & {
+  heroEyebrow: string;
+  heroTitle: string;
+  heroDescription: string;
+  feeLabel: string;
+  floatingCardLabel: string;
+  floatingCardValue: string;
+  floatingCardCopy: string;
+  sessionDuration: string;
+  classSchedule: string;
+  mode: string;
+  enrolled: string;
+  overviewTitle: string;
+  overviewParagraph: string;
+  outcomes: string[];
+  modules: CourseModule[];
+  featureColumns: CourseFeatureColumn[];
+  trainers: CourseTrainer[];
+  placementCopy: string;
+  supportCopy: string;
+  applyUrl: string;
+  brochureUrl?: string;
+  brochureFileUrl?: string;
+  brochureFileName?: string;
+  callNumber: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoImage?: SanityImageSource & { alt?: string };
+  seoNoIndex?: boolean;
+};
