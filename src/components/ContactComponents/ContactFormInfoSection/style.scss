@@ -169,6 +169,11 @@
 .contact-form__submit {
   margin-top: 6px;
   align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin-right: auto;
   min-height: 42px;
   padding: 9px 28px;
   border: none;

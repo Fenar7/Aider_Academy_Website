@@ -174,12 +174,13 @@ const HomepageMotion = () => {
           .from(
             ".hero-ctas > *",
             {
-              y: 26,
+              y: 18,
               autoAlpha: 0,
-              duration: 0.62,
-              stagger: 0.1,
+              duration: 0.42,
+              stagger: 0.08,
+              clearProps: "opacity,visibility,transform",
             },
-            0.5,
+            0.46,
           )
           .from(
             ".academy-badge, .contact-details",

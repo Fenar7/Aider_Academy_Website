@@ -33,9 +33,10 @@
 .site-header__nav {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  justify-self: start;
   gap: 18px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .site-header__nav-link {

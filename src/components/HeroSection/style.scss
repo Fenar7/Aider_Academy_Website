@@ -47,6 +47,8 @@
 }
 
 .left-section.content-section {
+  position: relative;
+  z-index: 3;
   flex: 1;
   max-width: 540px;
   display: flex;
@@ -85,12 +87,21 @@
 }
 
 .hero-ctas {
+  position: relative;
+  z-index: 4;
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
   align-items: center;
 
   button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 4;
+    opacity: 1;
+    visibility: visible;
     font-size: 17px;
     font-weight: 600;
     line-height: 24px;
@@ -123,6 +134,8 @@
 }
 
 .hero-contact-info {
+  position: relative;
+  z-index: 3;
   display: flex;
   flex-wrap: wrap;
   gap: 32px;
@@ -226,6 +239,7 @@
 }
 
 .hero-image-mask {
+  z-index: 1;
   position: absolute;
   top: 38px;
   left: 34px;
@@ -244,6 +258,7 @@
 }
 
 .floating-badge {
+  z-index: 3;
   position: absolute;
   background-color: #ecf9fc;
   border-radius: 10000px;
@@ -293,9 +308,11 @@
   bottom: 80px;
   left: -40px;
   transform: rotate(8deg);
+  z-index: 6;
 }
 
 .bottom-highlight {
+  z-index: 1;
   position: absolute;
   bottom: 30px;
   left: 34px;
