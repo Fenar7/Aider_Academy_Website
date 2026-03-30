@@ -2,27 +2,11 @@ import React from "react";
 import PrimaryButton from "@/components/PrimaryButton/PrimaryButton";
 import "./style.scss";
 
-const imgGridPrimary =
-  "https://www.figma.com/api/mcp/asset/207910ff-aab5-44ed-a6c2-f7c852faf3fb";
-const imgGridSecondary =
-  "https://www.figma.com/api/mcp/asset/39a17838-0c28-4aeb-a558-dfb8310fa43b";
-
 const BottomCtaSection = () => {
   return (
     <section className="bottom-cta-section-container">
       <div className="bottom-cta-section container">
         <div className="bottom-cta-panel">
-          <div className="bottom-cta-panel__grid-layer bottom-cta-panel__grid-layer--primary">
-            <img src={imgGridPrimary} alt="" aria-hidden="true" />
-            <img src={imgGridPrimary} alt="" aria-hidden="true" />
-            <img src={imgGridPrimary} alt="" aria-hidden="true" />
-          </div>
-          <div className="bottom-cta-panel__grid-layer bottom-cta-panel__grid-layer--secondary">
-            <img src={imgGridSecondary} alt="" aria-hidden="true" />
-            <img src={imgGridSecondary} alt="" aria-hidden="true" />
-            <img src={imgGridSecondary} alt="" aria-hidden="true" />
-          </div>
-
           <div className="bottom-cta-panel__cutout bottom-cta-panel__cutout--bottom-left" />
           <div className="bottom-cta-panel__cutout bottom-cta-panel__cutout--top-right" />
 

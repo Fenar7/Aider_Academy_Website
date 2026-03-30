@@ -4,29 +4,16 @@
   padding: 60px 0;
   overflow: hidden;
   background-color: $color-white;
+  background-image: url('/images/hero-grid.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
 
   @media (min-width: 1024px) {
     padding: 100px 0;
-  }
-}
-
-.hero-decoration-top {
-  position: absolute;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: auto;
-  z-index: 1;
-  pointer-events: none;
-  
-  @media (min-width: 1024px) {
-    left: 48%;
-    top: 90px;
-    width: 77px;
   }
 }
 
@@ -205,25 +192,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.hero-bg-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200%;
-  height: 200%;
-  pointer-events: none;
-  z-index: 0;
-  display: flex;
-  opacity: 0.3;
-
-  img {
-    width: 668px;
-    height: 668px;
-    object-fit: cover;
-  }
 }
 
 .hero-card-container {
